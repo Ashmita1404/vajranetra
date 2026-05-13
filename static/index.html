@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VajraNetra — Smart Attendance</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="layout">
+    <header class="header">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"></span>
+        <div>
+          <h1>VajraNetra</h1>
+          <p class="tagline">Smart attendance — live sessions & check-in</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span id="conn-pill" class="pill pill-off">Real-time: connecting…</span>
+        <span id="clock" class="mono"></span>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card panel">
+        <h2>Session</h2>
+        <label class="field">
+          <span>Active session</span>
+          <select id="session-select"></select>
+        </label>
+        <form id="new-session-form" class="stack">
+          <label class="field">
+            <span>New session title</span>
+            <input type="text" id="new-session-title" placeholder="e.g. CS101 — Week 5" required />
+          </label>
+          <button type="submit" class="btn secondary">Create session</button>
+        </form>
+        <div id="session-stats" class="stats"></div>
+      </section>
+
+      <section class="card panel">
+        <h2>Check-in</h2>
+        <form id="checkin-form" class="stack">
+          <label class="field">
+            <span>Student code</span>
+            <input type="text" id="student-code" placeholder="STU001" autocomplete="off" required />
+          </label>
+          <button type="submit" class="btn primary">Mark present</button>
+        </form>
+        <p class="hint">Try sample codes: <code>STU001</code> … <code>STU004</code>. Open this page in two windows to see instant updates.</p>
+      </section>
+
+      <section class="card panel">
+        <h2>Webcam check-in</h2>
+        <p class="hint camera-intro">Point the camera at a <strong>QR code</strong> or barcode that contains the student code (for example <code>STU001</code>). Grant camera access when prompted.</p>
+        <div class="camera-wrap">
+          <video id="camera-video" playsinline muted autoplay></video>
+          <canvas id="camera-canvas" hidden></canvas>
+        </div>
+        <p id="camera-status" class="camera-status mono" aria-live="polite">Camera off</p>
+        <div class="camera-actions">
+          <button type="button" id="camera-start" class="btn primary">Start camera</button>
+          <button type="button" id="camera-stop" class="btn secondary" disabled>Stop camera</button>
+        </div>
+      </section>
+
+      <section class="card panel wide">
+        <h2>Add student</h2>
+        <form id="student-form" class="row-form">
+          <input type="text" id="st-code" placeholder="Code" required />
+          <input type="text" id="st-name" placeholder="Full name" required />
+          <input type="email" id="st-email" placeholder="Email (optional)" />
+          <button type="submit" class="btn secondary">Register</button>
+        </form>
+      </section>
+
+      <section class="card panel wide">
+        <div class="section-head">
+          <h2>Present now</h2>
+          <span id="present-badge" class="badge">0</span>
+        </div>
+        <div id="feed" class="feed"></div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" hidden></div>
+  </div>
+  <script src="/assets/jsQR.min.js"></script>
+  <script src="/assets/app.js"></script>
+</body>
+</html>
